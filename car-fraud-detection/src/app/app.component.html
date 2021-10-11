@@ -110,8 +110,8 @@
         <th>Year Comparison Type</th>
         <th>Year</th>
         <th>Fuel Type</th>
-        <th>Risk</th>
-        <th>Actions</th>
+        <th class="text-center">Risk</th>
+        <th class="text-center">Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -121,7 +121,7 @@
         <td>{{formula[1].yearComparisonType}}</td>
         <td>{{formula[1].year}}</td>
         <td>{{formula[1].fuelType}}</td>
-        <td>
+        <td class="text-center">
           <span class="badge rounded-pill"
                 [ngClass]="{
                 'bg-danger': formula[1].risk === 'high',
