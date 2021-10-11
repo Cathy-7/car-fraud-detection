@@ -1,9 +1,12 @@
 <div class="container">
+  <h1>Car Fraud Risk Detection</h1>
+  <p class="subtitle">Create car fraud risk formula based on NHTSA API</p>
   <form>
     <!--  Risk Element-->
     <div class="d-flex align-items-end justify-content-between">
       <div class="col me-auto">
-        <label class="form-label">Risk<span class="text-danger">*</span></label>
+        <label class="form-label fw-bold mb-0">Risk<span class="text-danger">*</span></label>
+        <p class="text-information mb-2">Please select the risk level</p>
         <select class="form-select" aria-label="Risk"
                 name="risk"
                 [(ngModel)]="carFormula.risk">
@@ -26,7 +29,9 @@
       </div>
     </div>
 
-    <!--    <p>At least 1 field is mandatory to create a formula</p>-->
+    <p class="title mb-0 mt-3 fw-bold">Conditions<span class="text-danger">*</span></p>
+    <p class="text-information mb-2">Please select at least 1 condition from the list below</p>
+
     <div class="d-flex flex-row flex-wrap align-items-bottom">
       <!--  Make Name Element-->
       <div class="col-6">
@@ -88,7 +93,9 @@
 
   <hr/>
 
-  <div class="table-responsive">
+
+  <div *ngIf="getFormulas.length > 0 && !errorMessage" class="table-responsive">
+    <p class="title mb-0 mt-3 fw-bold">Formula(s)</p>
     <table class="table">
       <thead>
       <tr class="align-baseline">
@@ -115,6 +122,23 @@
       </tr>
       </tbody>
     </table>
+  </div>
+
+  <div *ngIf="errorMessage">
+    <div class="d-flex flex-col align-items-center justify-contents-center bg-light mt-8 p-20">
+      <i class="fa fa-chain-broken font-size-56 mb-8" aria-hidden="true"></i>
+      <p>Sorry, we're encountered an error {{errorMessage}}
+        Please try again.
+      </p>
+    </div>
+  </div>
+  <div *ngIf="getFormulas.length < 1">
+    <div class="d-flex flex-column align-items-center justify-contents-center p-4">
+      <i class="fa fa-folder-open-o d-block fs-1" aria-hidden="true"></i>
+      <p class="text-center">It seems like there's no formula(s) created yet.<br/>
+      Please create a formula using the generator above.
+      </p>
+    </div>
   </div>
 </div>
 
