@@ -14,8 +14,8 @@
 
   <form>
     <!--  Risk Element-->
-    <div class="d-flex align-items-end justify-content-between">
-      <div class="col me-auto">
+    <div class="d-flex flex-row align-items-end justify-content-between">
+      <div class="col col-lg-4 me-auto">
         <label class="form-label fw-bold mb-0">Risk<span class="text-danger">*</span></label>
         <p class="text-information mb-2">Please select the risk level</p>
         <select class="form-select" aria-label="Risk"
@@ -38,9 +38,9 @@
     <p class="title mb-0 mt-3 fw-bold">Conditions<span class="text-danger">*</span></p>
     <p class="text-information mb-2">Please select at least 1 condition from the list below</p>
 
-    <div class="d-flex flex-row flex-wrap align-items-bottom">
+    <div class="d-flex flex-row flex-wrap align-items-bottom mb-2">
       <!--  Make Name Element-->
-      <div class="col-6">
+      <div class="col col-sm-6 mb-2 mb-sm-0">
         <label class="form-label">Make Name</label>
         <select class="form-select" aria-label="List for Make Name"
                 name="makeName"
@@ -52,7 +52,7 @@
       </div>
 
       <!--  Model Name Element-->
-      <div class="col-6 ps-3" *ngIf="carFormula.makeName !== null">
+      <div class="col-12 col-sm-6 ps-sm-3" *ngIf="carFormula.makeName !== null">
         <label class="form-label">Model Name</label>
         <select class="form-select" aria-label="List for Model Name"
                 name="modelName"
@@ -62,9 +62,10 @@
         </select>
       </div>
     </div>
-    <div class="d-flex flex-row flex-wrap align-items-bottom">
+
+    <div class="d-flex flex-row flex-wrap align-items-bottom mb-2">
       <!--  Year Element-->
-      <div class="col-6">
+      <div class="col col-sm-6 mb-2 mb-sm-0">
         <label class="form-label">Year</label>
         <input type="number" class="form-control" placeholder="Year"
                name="year"
@@ -72,7 +73,7 @@
       </div>
 
       <!--  Year Element-->
-      <div class="col-5 ps-3" *ngIf="carFormula.year !== null">
+      <div class="col-12 col-6 col-lg-3 ps-sm-3" *ngIf="carFormula.year !== null">
         <label class="form-label">Year Comparison Type</label>
         <select class="form-select" aria-label="Comparison Type for year"
                 name="yearComparisonType"
@@ -85,7 +86,7 @@
     </div>
 
     <!--  Fuel Type Element-->
-    <div class="col-6">
+    <div class="col col-sm-6">
       <label class="form-label">Fuel Type</label>
       <select class="form-select" aria-label="Fuel Type"
               name="fuelType"
