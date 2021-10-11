@@ -1,3 +1,5 @@
+$color-secondary: #888DA7;
+
 .table {
   thead{
     color: white;
@@ -7,14 +9,21 @@
 }
 
 .subtitle{
-  color: #888DA7;
+  color: $color-secondary;
 }
 
 .text-information{
   font-size: 0.75rem;
-  color: #888DA7;
+  color: $color-secondary;
 }
 
 .title{
   font-size: 1rem;
+}
+
+.icon-delete{
+  color: $color-secondary;
+  &:hover{
+    cursor: pointer;
+  }
 }

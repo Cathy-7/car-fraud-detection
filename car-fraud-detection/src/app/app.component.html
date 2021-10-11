@@ -1,6 +1,17 @@
-<div class="container">
+<div *ngIf="errorMessage.responseCode">
+  <div class="d-flex flex-column align-items-center justify-contents-center p-4">
+    <i class="fa fa-chain-broken d-block fs-1" aria-hidden="true"></i>
+    <p class="fw-bold pt-2">Sorry, we're encountered an error code: [{{errorMessage.responseCode}}]<br/>
+    </p>
+    <q class="">{{errorMessage.response}}.</q><br/>
+    Please reach out the the support team.
+  </div>
+</div>
+
+<div class="container" *ngIf="!errorMessage.responseCode">
   <h1>Car Fraud Risk Detection</h1>
   <p class="subtitle">Create car fraud risk formula based on NHTSA API</p>
+
   <form>
     <!--  Risk Element-->
     <div class="d-flex align-items-end justify-content-between">
@@ -94,8 +105,8 @@
   <hr/>
 
 
-  <div *ngIf="getFormulas.length > 0 && !errorMessage" class="table-responsive">
-    <p class="title mb-0 mt-3 fw-bold">Formula(s)</p>
+  <div *ngIf="getFormulas.length > 0" class="table-responsive">
+    <p class="title mb-0 fw-bold">Formula(s)</p>
     <table class="table">
       <thead>
       <tr class="align-baseline">
@@ -115,31 +126,29 @@
         <td>{{formula[0].yearComparisonType}}</td>
         <td>{{formula[0].year}}</td>
         <td>{{formula[0].fuelType}}</td>
-        <td>{{formula[0].risk}}</td>
         <td>
+          <span class="badge rounded-pill"
+                [ngClass]="{
+                'bg-danger': formula[0].risk === 'high',
+                'bg-warning': formula[0].risk === 'medium',
+                'bg-success': formula[0].risk === 'low'
+                }">
+            {{formula[0].risk}}
+          </span>
+        </td>
+        <td class="text-center icon-delete">
           <i class="fa fa-trash" aria-hidden="true" (click)="removeRow(formula[0])"></i>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-
-  <div *ngIf="errorMessage">
-    <div class="d-flex flex-col align-items-center justify-contents-center bg-light mt-8 p-20">
-      <i class="fa fa-chain-broken font-size-56 mb-8" aria-hidden="true"></i>
-      <p>Sorry, we're encountered an error {{errorMessage}}
-        Please try again.
-      </p>
-    </div>
-  </div>
   <div *ngIf="getFormulas.length < 1">
     <div class="d-flex flex-column align-items-center justify-contents-center p-4">
       <i class="fa fa-folder-open-o d-block fs-1" aria-hidden="true"></i>
       <p class="text-center">It seems like there's no formula(s) created yet.<br/>
-      Please create a formula using the generator above.
+        Please create a formula using the generator above.
       </p>
     </div>
   </div>
 </div>
-
-

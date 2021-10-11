@@ -21,7 +21,11 @@ export class AppComponent implements OnInit {
     fuelType: null,
     risk: null,
   }
-  errorMessage: string = '';
+  errorMessage = {
+    responseCode: null,
+    response: []
+  }
+
 
   //use a map to prevent duplication of formula
   formulasDataMap = new Map()
@@ -31,10 +35,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.nhtsaApiService.getAllCarData().then(response => {
-      this.carDetails = response;
-    }).catch(error => {
-      this.errorMessage = error.message
+      if (response.responseCode) {
+        this.errorMessage.responseCode = response.responseCode
+        this.errorMessage.response = response.response.message
+      } else {
+        this.errorMessage = {
+          responseCode: null,
+          response: []
+        }
+        this.carDetails = response;
+      }
+
     })
+
+    console.log(this.carDetails);
   }
 
   get getFormulas() {
@@ -63,7 +77,6 @@ export class AppComponent implements OnInit {
 
   updateCarModelList(event: any) {
     this.carFormula.makeName = event;
-    console.log("Hello" + this.carFormula.modelName)
     this.nhtsaApiService.getModelsForMake(event).then(result => {
       this.modelDetails = result.Results
     })
