@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {ErrorHandler, Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,6 @@ export class NhtsaApiService {
   async getAllCarData() {
     let carsData: any = [];
     await this.getMakesForVehicleType().then(vehiclesData => {
-      console.log(vehiclesData)
       return vehiclesData.Results.forEach((data:any) => {
         let carDetails: any = {
           'MakeId': data.MakeId,
@@ -26,7 +25,6 @@ export class NhtsaApiService {
         // carDetails.models = this.getModelsForMake(data.Make_Name)
         carsData.push(carDetails);
       })
-      console.log(carsData)
     })
 
     return carsData;
@@ -40,9 +38,10 @@ export class NhtsaApiService {
 
   // Get all models based on make name
   async getModelsForMake(makeName: string) {
-    return await fetch(this.baseUrl + 'GetModelsForMake/' + encodeURIComponent(makeName) + '?format=json')
+    // console.log(this.baseUrl + 'GetModelsForMake/' + encodeURIComponent(makeName) + '?format=json')
+    let getModelsForMakeUrl = this.baseUrl + 'GetModelsForMake/' + encodeURIComponent(makeName) + '?format=json'
+    return await fetch(getModelsForMakeUrl)
       .then(response => response.json())
   }
-
 
 }

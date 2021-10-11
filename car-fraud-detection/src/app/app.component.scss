@@ -1,10 +1,8 @@
-/* Hide the list on focus of the input field */
-datalist {
-  display: none;
-  width: 100% !important;
-}
+.table {
 
-/* specifically hide the arrow on focus */
-input::-webkit-calendar-picker-indicator {
-  display: none !important;
+  thead{
+    color: white;
+    font-size: 0.75rem;
+    background-color: #7EA2AA;
+  }
 }

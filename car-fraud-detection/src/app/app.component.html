@@ -1,47 +1,121 @@
-<form>
-  <!--  Make Name Element-->
-  <label class="d-block" for="makeName">Make Name</label>
-  <input class="form-select" list="makeNameList" name="makeName" id="makeName" placeholder="Select a make name...">
+<div class="container">
+  <form>
+    <!--  Risk Element-->
+    <div class="d-flex align-items-end justify-content-between">
+      <div class="col me-auto">
+        <label class="form-label">Risk<span class="text-danger">*</span></label>
+        <select class="form-select" aria-label="Risk"
+                name="risk"
+                [(ngModel)]="carFormula.risk">
+          <option value="high"> high</option>
+          <option value="medium"> medium</option>
+          <option value="low"> low</option>
+        </select>
+      </div>
+      <div class="ps-3">
+        <button class="btn btn-primary" type="submit"
+                [disabled]="
+                (carFormula.risk === null && carFormula.makeName === null) ||
+                (carFormula.risk === null && carFormula.year === null) ||
+                (carFormula.risk === null && carFormula.fuelType === null) ||
+                (carFormula.risk === null && carFormula.risk === null)"
+                (click)="createFormulas(carFormula)">Create Formula
+        </button>
 
-  <datalist class="w-100" id="makeNameList" aria-label="List for Make Name">
-    <option *ngFor="let data of carDetails" [value]="data.MakeName">
-  </datalist>
-  <br/>
-  <!--  Model Name Element-->
-  <label class="d-block" for="modelName">Make Name</label>
-  <input class="form-select" list="modelNameList" name="makeName" id="modelName" placeholder="Select a make name...">
 
-  <datalist id="modelNameList" aria-label="List for Make Name">
-    <option *ngFor="let data of carDetails" [value]="data.MakeName">
-  </datalist>
+      </div>
+    </div>
 
-  <!--  Year Element-->
-  <label class="d-block" for="modelName">Comparison Type</label>
-  <select class="form-select" aria-label="Comparison Type for year">
-    <option value=">"> ></option>
-    <option value="<"> <</option>
-    <option value="="> =</option>
-  </select>
+    <!--    <p>At least 1 field is mandatory to create a formula</p>-->
+    <div class="d-flex flex-row flex-wrap align-items-bottom">
+      <!--  Make Name Element-->
+      <div class="col-6">
+        <label class="form-label">Make Name</label>
+        <select class="form-select" aria-label="List for Make Name"
+                name="makeName"
+                [ngModel]="carFormula.makeName"
+                (ngModelChange)="updateCarModelList($event)">
+          <option disabled>Select an option...</option>
+          <option *ngFor="let data of carDetails" [value]="data.MakeName">{{data.MakeName}}</option>
+        </select>
+      </div>
 
-  <!--  Year Element-->
-  <label for="year" class="form-label">Year</label>
-  <input type="number" class="form-control" id="year" placeholder="Year">
+      <!--  Model Name Element-->
+      <div class="col-6 ps-3" *ngIf="carFormula.makeName !== null">
+        <label class="form-label">Model Name</label>
+        <select class="form-select" aria-label="List for Model Name"
+                name="modelName"
+                [(ngModel)]="carFormula.modelName">
+          <option>Select an option...</option>
+          <option *ngFor="let data of modelDetails" [value]="data.Model_Name">{{data.Model_Name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex flex-row flex-wrap align-items-bottom">
+      <!--  Year Element-->
+      <div class="col-6">
+        <label class="form-label">Year</label>
+        <input type="number" class="form-control" placeholder="Year"
+               name="year"
+               [(ngModel)]="carFormula.year">
+      </div>
 
-  <!--  Fuel Type Element-->
-  <label class="d-block" for="modelName">Comparison Type</label>
-  <select class="form-select" aria-label="Comparison Type for year">
-    <option value="diesel"> diesel</option>
-    <option value="petrol"> petrol</option>
-    <option value="electric"> electric</option>
-  </select>
+      <!--  Year Element-->
+      <div class="col-5 ps-3" *ngIf="carFormula.year !== null">
+        <label class="form-label">Year Comparison Type</label>
+        <select class="form-select" aria-label="Comparison Type for year"
+                name="yearComparisonType"
+                [(ngModel)]="carFormula.yearComparisonType">
+          <option value=">"> ></option>
+          <option value="<"> <</option>
+          <option value="="> =</option>
+        </select>
+      </div>
+    </div>
 
-  <!--  Risk Element-->
-  <label class="d-block" for="modelName">Comparison Type</label>
-  <select class="form-select" aria-label="Comparison Type for year">
-    <option value="high"> high</option>
-    <option value="medium"> medium</option>
-    <option value="low"> low</option>
-  </select>
+    <!--  Fuel Type Element-->
+    <div class="col-6">
+      <label class="form-label">Fuel Type</label>
+      <select class="form-select" aria-label="Fuel Type"
+              name="fuelType"
+              [(ngModel)]="carFormula.fuelType">
+        <option value="diesel"> diesel</option>
+        <option value="petrol"> petrol</option>
+        <option value="electric"> electric</option>
+      </select>
+    </div>
+  </form>
 
-  <button class="btn btn-primary" type="submit">Create Formula</button>
-</form>
+  <hr/>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr class="align-baseline">
+        <th>Make Name</th>
+        <th>Model Name</th>
+        <th>Year Comparison Type</th>
+        <th>Year</th>
+        <th>Fuel Type</th>
+        <th>Risk</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let formula of getFormulas">
+        <td>{{formula[0].makeName}}</td>
+        <td>{{formula[0].modelName}}</td>
+        <td>{{formula[0].yearComparisonType}}</td>
+        <td>{{formula[0].year}}</td>
+        <td>{{formula[0].fuelType}}</td>
+        <td>{{formula[0].risk}}</td>
+        <td>
+          <i class="fa fa-trash" aria-hidden="true" (click)="removeRow(formula[0])"></i>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
