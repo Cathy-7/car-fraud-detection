@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     yearComparisonType: null,
     year: null,
     fuelType: null,
-    risk: null,
+    risk: 'low',
   }
   errorMessage = {
     responseCode: null,

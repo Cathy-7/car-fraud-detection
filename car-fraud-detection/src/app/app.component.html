@@ -21,22 +21,17 @@
         <select class="form-select" aria-label="Risk"
                 name="risk"
                 [(ngModel)]="carFormula.risk">
-          <option value="high"> high</option>
-          <option value="medium"> medium</option>
-          <option value="low"> low</option>
+          <option value="low">Low</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
         </select>
       </div>
       <div class="ps-3">
         <button class="btn btn-primary" type="submit"
                 [disabled]="
-                (carFormula.risk === null && carFormula.makeName === null) ||
-                (carFormula.risk === null && carFormula.year === null) ||
-                (carFormula.risk === null && carFormula.fuelType === null) ||
-                (carFormula.risk === null && carFormula.risk === null)"
+                !carFormula.makeName && !carFormula.modelName && !carFormula.year && !carFormula.fuelType"
                 (click)="createFormulas(carFormula)">Create Formula
         </button>
-
-
       </div>
     </div>
 
@@ -62,7 +57,7 @@
         <select class="form-select" aria-label="List for Model Name"
                 name="modelName"
                 [(ngModel)]="carFormula.modelName">
-          <option>Select an option...</option>
+          <option disabled>Select an option...</option>
           <option *ngFor="let data of modelDetails" [value]="data.Model_Name">{{data.Model_Name}}</option>
         </select>
       </div>
@@ -95,9 +90,9 @@
       <select class="form-select" aria-label="Fuel Type"
               name="fuelType"
               [(ngModel)]="carFormula.fuelType">
-        <option value="diesel"> diesel</option>
-        <option value="petrol"> petrol</option>
-        <option value="electric"> electric</option>
+        <option value="diesel">Diesel</option>
+        <option value="petrol">Petrol</option>
+        <option value="electric">Electric</option>
       </select>
     </div>
   </form>
