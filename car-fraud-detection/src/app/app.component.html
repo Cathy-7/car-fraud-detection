@@ -116,19 +116,19 @@
       </thead>
       <tbody>
       <tr *ngFor="let formula of getFormulas">
-        <td>{{formula[0].makeName}}</td>
-        <td>{{formula[0].modelName}}</td>
-        <td>{{formula[0].yearComparisonType}}</td>
-        <td>{{formula[0].year}}</td>
-        <td>{{formula[0].fuelType}}</td>
+        <td>{{formula[1].makeName}}</td>
+        <td>{{formula[1].modelName}}</td>
+        <td>{{formula[1].yearComparisonType}}</td>
+        <td>{{formula[1].year}}</td>
+        <td>{{formula[1].fuelType}}</td>
         <td>
           <span class="badge rounded-pill"
                 [ngClass]="{
-                'bg-danger': formula[0].risk === 'high',
-                'bg-warning': formula[0].risk === 'medium',
-                'bg-success': formula[0].risk === 'low'
+                'bg-danger': formula[1].risk === 'high',
+                'bg-warning': formula[1].risk === 'medium',
+                'bg-success': formula[1].risk === 'low'
                 }">
-            {{formula[0].risk}}
+            {{formula[1].risk}}
           </span>
         </td>
         <td class="text-center icon-delete">

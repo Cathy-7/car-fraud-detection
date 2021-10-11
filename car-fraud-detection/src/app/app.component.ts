@@ -57,6 +57,7 @@ export class AppComponent implements OnInit {
 
   createFormulas(formula: any) {
     let timestampID = Math.floor(new Date().getTime());
+
     let data = {
       id: formula.id ? formula.id : '',
       makeName: formula.makeName ? formula.makeName : '',
@@ -64,14 +65,16 @@ export class AppComponent implements OnInit {
       yearComparisonType: formula.yearComparisonType ? formula.yearComparisonType : null,
       year: formula.year ? formula.year : null,
       fuelType: formula.fuelType ? formula.fuelType : '',
-      risk: formula.risk ? formula.risk : '',
+      risk: formula.risk ? formula.risk : 'low',
     };
-    this.formulasDataMap.set(data, data)
-    console.log(this.formulasDataMap)
+
+    // use stingified data as id to prevent duplication when added by user
+    let dataId = JSON.stringify(data)
+    console.log(data)
+    this.formulasDataMap.set(dataId, data)
   }
 
   removeRow(formula: any) {
-    console.log(formula)
     this.formulasDataMap.delete(formula)
   }
 
